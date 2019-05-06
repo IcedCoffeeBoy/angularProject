@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class ShoppingListComponent implements OnInit {
+  ingredients: string[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
