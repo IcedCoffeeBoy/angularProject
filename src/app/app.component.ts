@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularProject';
+  view: string;
+
+  constructor() {
+    this.view = 'recipies';
+  }
+
+  onViewChange(view: string) {
+    this.view = view;
+  }
+
 }
