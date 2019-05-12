@@ -9,8 +9,6 @@ import { Component, OnInit } from '@angular/core';
 export class RecipesComponent implements OnInit {
   recipeDetail: Recipe;
   constructor() {
-    this.recipeDetail = new Recipe('recipe detail', 'recipe desc', 'https://via.placeholder.com/150');
-
   }
 
   ngOnInit() {

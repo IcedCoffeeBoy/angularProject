@@ -11,6 +11,7 @@ export class RecipeListComponent implements OnInit {
   @Output() recipeClicked = new EventEmitter<Recipe>();
   @ViewChild('recipeName') recipeName: ElementRef;
   @ViewChild('description') description: ElementRef;
+  selectedIndex: number;
 
   recipes: Recipe[] = [
     new Recipe('Test name',
@@ -38,6 +39,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   onRecipeClick(index: number) {
+    this.selectedIndex = index;
     return this.recipeClicked.emit(this.recipes[index]);
   }
 
