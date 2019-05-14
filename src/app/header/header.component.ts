@@ -7,13 +7,14 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Output() viewChangeClick = new EventEmitter<string>();
+  isOpen: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onViewChange(view: string){
+  onViewChange(view: string) {
     return this.viewChangeClick.emit(view);
   }
 
