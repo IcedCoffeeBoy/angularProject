@@ -4,14 +4,16 @@ import { Directive, ElementRef, Renderer2, HostListener, Input } from '@angular/
   selector: '[appDropdown]'
 })
 export class DropdownDirective {
-  @Input() set isOpen(condition: boolean) {
-    if (condition) {
+  isOpen: boolean = false;
+
+  constructor(private eleRef: ElementRef, private render: Renderer2) { }
+
+  @HostListener('click') toggleDropDown() {
+    this.isOpen = !this.isOpen;
+    if (this.isOpen) {
       this.render.addClass(this.eleRef.nativeElement, 'open');
     } else {
       this.render.removeClass(this.eleRef.nativeElement, 'open');
     }
   }
-
-  constructor(private eleRef: ElementRef, private render: Renderer2) { }
-
 }
