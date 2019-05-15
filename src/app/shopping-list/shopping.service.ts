@@ -3,6 +3,7 @@ import { EventEmitter, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/Ingredient.model';
 
 
+
 export class ShoppingService implements OnInit {
   private ingredients: Ingredient[] = [
     new Ingredient('Apples', 5),
@@ -24,6 +25,13 @@ export class ShoppingService implements OnInit {
 
   addIngredient(ingredient: Ingredient): void {
     this.ingredients.push(ingredient);
+    this.mapIngredient();
+    this.sortIngredient();
+    this.ingredientUpdate.emit(this.ingredients.slice());
+  }
+
+  addIngredients(ingredients: Ingredient[]) {
+    this.ingredients.push(...ingredients);
     this.mapIngredient();
     this.sortIngredient();
     this.ingredientUpdate.emit(this.ingredients.slice());
