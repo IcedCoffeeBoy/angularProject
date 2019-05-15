@@ -32,7 +32,7 @@ import { ShoppingService } from './shopping-list/shopping.service';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [ShoppingService],
+  providers: [ShoppingService, RecipesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

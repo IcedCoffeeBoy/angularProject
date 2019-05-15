@@ -3,7 +3,6 @@ import { EventEmitter, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/Ingredient.model';
 
 
-
 export class ShoppingService implements OnInit {
   private ingredients: Ingredient[] = [
     new Ingredient('Apples', 5),
@@ -15,7 +14,6 @@ export class ShoppingService implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.mapIngredient();
     this.sortIngredient();
   }
 
@@ -23,18 +21,39 @@ export class ShoppingService implements OnInit {
     return this.ingredients.slice();
   }
 
-  addIngredient(ingredient: Ingredient): void {
-    this.ingredients.push(ingredient);
-    this.mapIngredient();
+  addIngredient(ingredient: Ingredient) {
+    this.checkandAddIngredient(ingredient);
     this.sortIngredient();
     this.ingredientUpdate.emit(this.ingredients.slice());
   }
 
   addIngredients(ingredients: Ingredient[]) {
-    this.ingredients.push(...ingredients);
-    this.mapIngredient();
+    // this.ingredients.push(...ingredients);
+    ingredients.forEach(
+      (ingredient: Ingredient) => this.checkandAddIngredient(ingredient)
+    );
     this.sortIngredient();
     this.ingredientUpdate.emit(this.ingredients.slice());
+  }
+
+  private checkandAddIngredient(ingredient: Ingredient): void {
+    const existingIngredient = this.isExistIngredient(ingredient);
+    if (existingIngredient) {
+      existingIngredient.amount += ingredient.amount;
+    } else {
+      this.ingredients.push(ingredient);
+    }
+  }
+
+  // Check if there is an existing ingredient
+  // return the item if it exist else return null
+  private isExistIngredient(ingredient: Ingredient): Ingredient {
+    for (let item of this.ingredients) {
+      if (item.name.toLowerCase() === ingredient.name.toLowerCase()) {
+        return item;
+      }
+    }
+    return null;
   }
 
   private sortIngredient(): void {
@@ -43,6 +62,7 @@ export class ShoppingService implements OnInit {
         a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
   }
 
+  // Map each ingredient and combine two ingredients with the same name
   private mapIngredient() {
     const map = new Map<string, number>();
     this.ingredients.forEach(
